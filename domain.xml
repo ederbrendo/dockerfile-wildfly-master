@@ -119,6 +119,7 @@
                         <driver name="h2" module="com.h2database.h2">
                             <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                         </driver>
+                         <!-- Driver do PostgreSQL-->
                         <driver name="postgres" module="org.postgres">
                             <driver-class>org.postgresql.Driver</driver-class>
                         </driver>
@@ -308,7 +309,7 @@
             <subsystem xmlns="urn:jboss:domain:messaging-activemq:1.0">
                 <server name="default">
                     <!-- ALTERACAO: Definido uma senha pra o JMS-->
-                    <cluster password="${jboss.messaging.cluster.password:unirn}"/>
+                    <cluster password="${jboss.messaging.cluster.password:admin}"/>
                     <security-setting name="#">
                         <role name="guest" send="true" consume="true" create-non-durable-queue="true" delete-non-durable-queue="true"/>
                     </security-setting>
@@ -335,8 +336,8 @@
                 </server>
             </subsystem>
             <subsystem xmlns="urn:jboss:domain:modcluster:2.0">
-                <!--ALTERACAO: Configurado o modCluster - apontando para a conexão no apache1, que está mapeado abaixo. -->
-                <mod-cluster-config advertise-socket="modcluster" proxies="apache1" advertise="false" sticky-session="true" load-balancing-group="arquitetura" connector="ajp">
+                <!--ALTERACAO: Configurado o modCluster - apontando para a conexão no apache, que está mapeado abaixo. -->
+                <mod-cluster-config advertise-socket="modcluster" proxies="apache" advertise="false" sticky-session="true" load-balancing-group="arquitetura" connector="ajp">
                     <dynamic-load-provider>
                         <load-metric type="cpu"/>
                     </dynamic-load-provider>
@@ -571,7 +572,7 @@
                 <remote-destination host="localhost" port="25"/>
             </outbound-socket-binding>
             <!--ALTERACAO: Configurado para o servidor Apache -->
-            <outbound-socket-binding name="apache1">
+            <outbound-socket-binding name="apache">
                 <remote-destination host="172.18.0.2" port="8080"/>
             </outbound-socket-binding>
         </socket-binding-group>

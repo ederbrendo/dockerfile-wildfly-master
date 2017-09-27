@@ -27,6 +27,8 @@ RUN mkdir -p /opt/wildfly/modules/org/postgres/main
 COPY module.xml /opt/wildfly/modules/org/postgres/main/module.xml
 COPY postgresql-9.4-1201-jdbc41.jar /opt/wildfly/modules/org/postgres/main/postgresql-9.4-1201-jdbc41.jar
 
+RUN /opt/wildfly/bin/add-user.sh admin admin
+
 RUN systemctl enable wildfly.service
 
 ENTRYPOINT ["/sbin/init"]
